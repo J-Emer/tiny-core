@@ -8,6 +8,7 @@ use Jemer\Tiny\Commands\BuildSingleCommand;
 use Jemer\Tiny\Commands\CleanCommand;
 use Jemer\Tiny\Commands\CreatePageCommand;
 use Jemer\Tiny\Commands\ServeCommand;
+use Jemer\Tiny\Commands\ShowCommand;
 use Jemer\Tiny\Commands\WatchCommand;
 use Jemer\Tiny\Helpers\Paths;
 use Jemer\Tiny\Loaders\ConfigLoader;
@@ -102,6 +103,7 @@ class Kernel
             new CreatePageCommand(),
             new ServeCommand(),
             new WatchCommand(),
+            new ShowCommand(),
             ...$this->extraCommands,
         ];
     }

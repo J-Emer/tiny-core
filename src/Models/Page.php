@@ -19,20 +19,22 @@ class Page
         public bool $nav = true,
         public int $order = 10,
         public array $tags = [],
+        public string $thumb = '',
         public string $content = ''
     ) {}
 
     public static function FromArray(array $arr) : Page
     {
         return new Page(
-            (string) ($arr['title'] ?? throw new RuntimeException('Page: Missing title')),
-            (string) ($arr['slug'] ?? throw new RuntimeException('Page: Missing slug')),
+            (string) ($arr['title'] ?? throw new RuntimeException('Tiny-Core/Models/Page: Missing title')),
+            (string) ($arr['slug'] ?? throw new RuntimeException('Tiny-Core/Models/PagePage: Missing slug')),
             self::ParseDate($arr['date'] ?? null),
             (string) ($arr['template'] ?? 'page'),
             filter_var($arr['draft'] ?? false, FILTER_VALIDATE_BOOLEAN),
             filter_var($arr['nav'] ?? true, FILTER_VALIDATE_BOOLEAN),
             (int) ($arr['order'] ?? 10),
             array_map('strval', (array) ($arr['tags'] ?? [])),
+            (string)($arr['thumb'] ?? ''),
             (string) ($arr['content'] ?? 'Content goes here.')
         );
     }
@@ -83,6 +85,7 @@ class Page
             'nav'      => $this->nav,
             'order'    => $this->order,
             'tags'     => $this->tags,
+            'thumb'    => $this->thumb,
         ];
 
         $yaml = Yaml::dump($frontMatter, 4, 2);
@@ -106,6 +109,7 @@ class Page
             'nav'      => $this->nav,
             'order'    => $this->order,
             'tags'     => $this->tags,
+            'thumb'     => $this->thumb,
             'content'  => $this->content,
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) ?: '';
     }
