@@ -1,0 +1,26 @@
+# Tiny's built-in defaults. A project's config.yaml only needs the values it
+# wants to change; everything else comes from here, so new options added to
+# the core never break existing projects.
+site:
+  name: Tiny
+  description: ''
+  baseurl: http://localhost:8000
+  production_url: ''
+
+theme:
+  name: tiny-theme
+
+list:
+  title: List
+  slug: list
+  order: 10
+  template: list
+  build: true
+
+paths:
+  templates: theme
+  content: content
+  assets: assets
+  output: public
+  assets_output: public/assets
+  manifest: .tiny-manifest.json   # tracks generated files; 

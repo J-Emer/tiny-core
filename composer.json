@@ -1,0 +1,26 @@
+{
+    "name": "jemer/tiny-core",
+    "description": "Tiny static site generator engine using php, markdown, and yaml",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2",
+        "mnapoli/front-yaml": "^2.0",
+        "symfony/console": "^7.4",
+        "symfony/filesystem": "^7.4",
+        "symfony/finder": "^7.4",
+        "symfony/yaml": "^7.4",
+        "twig/twig": "^3.30"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jemer\\Tiny\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "J-Emer",
+            "email": "jemerson6989@gmail.com"
+        }
+    ]
+}
