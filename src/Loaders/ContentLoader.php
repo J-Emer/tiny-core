@@ -96,13 +96,9 @@ class ContentLoader
 
     private function ParseFile(SplFileInfo $file) : array
     {
-        // 1. Note: SplFileInfo::getExtension() returns 'md', not '.md'
         $extension = $file->getExtension(); 
 
-        // 2. Check if a parser exists for this extension directly
         if (isset($this->parsers[$extension])) {
-            echo $extension . PHP_EOL;
-            // 3. Call the parse method dynamically on the object
             return $this->parsers[$extension]->parse($file);
         }
 
