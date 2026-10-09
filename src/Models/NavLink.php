@@ -9,20 +9,21 @@ class NavLink
     public function __construct(
         public string $title,
         public string $slug,
+        public string $thumb,
         public string $url,
         public int $order = 10,
     ) {}
 
-    public static function Create(string $title, string $slug, int $order = 10) : NavLink
+    public static function Create(string $title, string $slug, string $thumb, int $order = 10) : NavLink
     {
         $baseUrl = rtrim((string) ConfigLoader::Get('site.baseurl', ''), '/');
 
-        return new NavLink($title, $slug, $baseUrl . '/' . $slug . '.html', $order);
+        return new NavLink($title, $slug, $thumb, $baseUrl . '/' . $slug . '.html', $order);
     }
 
     public static function FromPage(Page $page) : NavLink
     {
-        return self::Create($page->title, $page->slug, $page->order);
+        return self::Create($page->title, $page->slug, $page->thumb, $page->order);
     }
 
     public function __toString(): string
