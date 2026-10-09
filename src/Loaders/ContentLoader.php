@@ -5,6 +5,9 @@ namespace Jemer\Tiny\Loaders;
 use Jemer\Tiny\Helpers\Paths;
 use Jemer\Tiny\Models\NavLink;
 use Jemer\Tiny\Models\Page;
+use Jemer\Tiny\Parsers\JsonParser;
+use Jemer\Tiny\Parsers\MarkdownParser;
+use Jemer\Tiny\Parsers\YamlParser;
 use Mni\FrontYAML\Parser;
 use RuntimeException;
 use Symfony\Component\Finder\Finder;
@@ -19,8 +22,18 @@ class ContentLoader
     private string $contentDirectory;
     private Parser $parser;
 
+
+    private array $parsers;
+
+
+
     public function __construct()
     {
+        $this->parsers = [
+            "md" => new MarkdownParser(), 
+            "json" => new JsonParser(),
+            "yaml" => new YamlParser()
+        ];
         $this->contentDirectory = Paths::Get('content');
         $this->parser = new Parser();
         $this->LoadFiles();
@@ -29,7 +42,7 @@ class ContentLoader
     private function LoadFiles() : void
     {
         $finder = new Finder();
-        $finder->files()->in($this->contentDirectory)->name('*.md');
+        $finder->files()->in($this->contentDirectory)->name(['*.md', '*.json', '*.yaml']);
 
         foreach ($finder as $file)
         {
@@ -79,12 +92,27 @@ class ContentLoader
         return ConfigLoader::Get('list.slug', 'list');
     }
 
+
+
     private function ParseFile(SplFileInfo $file) : array
     {
-        $document = $this->parser->parse($file->getContents());
-        $yaml = $document->getYAML() ?? [];
-        $yaml['content'] = $document->getContent();
-        return $yaml;
+        // 1. Note: SplFileInfo::getExtension() returns 'md', not '.md'
+        $extension = $file->getExtension(); 
+
+        // 2. Check if a parser exists for this extension directly
+        if (isset($this->parsers[$extension])) {
+            echo $extension . PHP_EOL;
+            // 3. Call the parse method dynamically on the object
+            return $this->parsers[$extension]->parse($file);
+        }
+
+        return []; 
+
+        // --- original code, not used ---
+        // $document = $this->parser->parse($file->getContents());
+        // $yaml = $document->getYAML() ?? [];
+        // $yaml['content'] = $document->getContent();
+        // return $yaml;
     }
 
     private function AddTags(Page $page) : void
