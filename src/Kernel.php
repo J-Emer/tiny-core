@@ -26,7 +26,7 @@ use Symfony\Component\Console\Command\Command;
  */
 class Kernel
 {
-    public const VERSION = 'v0.1.0';
+    public const VERSION = 'v0.1.3';
 
     private ?Application $app = null;
 
