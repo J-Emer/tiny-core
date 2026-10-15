@@ -3,6 +3,7 @@
 namespace Jemer\Tiny\Generators;
 
 use Generator;
+use Jemer\Tiny\Factories\Factory;
 use Jemer\Tiny\Helpers\Paths;
 use Jemer\Tiny\Loaders\ConfigLoader;
 use Jemer\Tiny\Loaders\ContentLoader;
@@ -154,7 +155,7 @@ class PageGenerator
      */
     public function Build404() : BuildResult
     {
-        $page = $this->contentLoader->GetPageBySlug('404') ?? Page::FromArray([
+        $page = $this->contentLoader->GetPageBySlug('404') ?? Factory::Page([
             'title' => '404',
             'slug' => '404',
             'nav' => false,

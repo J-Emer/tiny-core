@@ -10,13 +10,6 @@ class PathHelper
         return implode($sep, $args); 
     } 
 
-    public static function Stringify(string $title): string
-    {
-        $title = strtolower(trim($title));
-        $title = preg_replace('/[^a-z0-9]+/', '-', $title);
-        return trim($title, '-');
-    }
-
     public static function GetFileNameWithOutExtension(string $path) : string 
     { 
         return pathinfo($path, PATHINFO_FILENAME); 

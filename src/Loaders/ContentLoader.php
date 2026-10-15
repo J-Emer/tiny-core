@@ -2,6 +2,7 @@
 
 namespace Jemer\Tiny\Loaders;
 
+use Jemer\Tiny\Factories\Factory;
 use Jemer\Tiny\Helpers\Paths;
 use Jemer\Tiny\Models\NavLink;
 use Jemer\Tiny\Models\Page;
@@ -48,7 +49,8 @@ class ContentLoader
         {
             try
             {
-                $page = Page::FromArray($this->ParseFile($file));
+                // $page = Page::FromArray($this->ParseFile($file));
+                $page = Factory::Page($this->ParseFile($file));
             }
             catch (Throwable $e)
             {
